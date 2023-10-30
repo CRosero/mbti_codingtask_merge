@@ -1,3 +1,8 @@
+import argparse
+import json
+
+# Python program to merge overlapping Intervals in
+# O(n Log n) time and O(n) extra space
 def merge(interval_list):
     merged_list = []
     interval_list = sorted(interval_list)
@@ -52,4 +57,16 @@ def test_merge():
     assert merge(intervals_float) == [[-1.5,5]]
 
 if __name__ == '__main__':
-    test_merge()
+    # Parse arguments from command line
+    parser = argparse.ArgumentParser("Interval merge function.")
+    parser.add_argument("interval_list", type=json.loads, help="List of intervals to merge.")
+    parser.add_argument("--test_function", type=bool, default=False, help="Boolean used to test the function.")
+    args = parser.parse_args()
+
+    # Run test function if specified
+    if args.test_function:
+        test_merge()
+    else:
+        # Run merge function
+        merged_interval_list = merge(args.interval_list)
+        print(f"The intervals {args.interval_list} have been merged to {merged_interval_list}.")
