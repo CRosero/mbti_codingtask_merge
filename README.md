@@ -33,3 +33,6 @@ with the output being:
 All tests passed.
 ```
 if all tests passed, otherwise an AssertionError will be raised.
+
+## Notes on Development and Approach.
+The merge function has a time complexity of O(n logn) and a space complexity of O(n). In terms of robstuness towards very big inputs, I understood that as referring to e.g. infinity, which is why I put this in some of the test cases in `test_merge()`. The implementation of the functionality and its corresponding testing took about 30 minutes. Other activities such as rewriting tests, fixing bugs, commenting, writing the README, reformatting to accept command line inputs, testing whether I could optimize the function to have a better time complexity or space complexity (there was one approach with O(1), in place, but this would not have been in accordance with the task because it was explicitly asked for result to be returned), etc. took about 1.5 hours, so in total about 2-2.5 hours.
