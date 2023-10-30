@@ -1,29 +1,37 @@
 import argparse
 import json
 
-# Python program to merge overlapping Intervals in
-# O(n Log n) time and O(n) extra space
+# Python function to merge overlapping Intervals
+# Intervals are numerical and smaller value inside each interval must come first
 def merge(interval_list):
     merged_list = []
-    interval_list = sorted(interval_list)
-    # Go through each interval in the list
-    for interval in interval_list:
-        # If the merged list is empty, add the first interval
-        if not merged_list:
-            merged_list.append(interval)
-        else:
-            # If the current interval overlaps with the last interval in 
-            # the merged list, merge the two intervals
-            if interval[0] <= merged_list[-1][1]:
-                merged_list[-1][1] = max(merged_list[-1][1], interval[1])
-            # If the current interval does not overlap with the last interval in 
-            # the merged list, add the current interval to the merged list
-            else:
+    # Check if the input list is empty 
+    if len(interval_list) == 0:
+        return merged_list
+    # Check if the input list has only one interval
+    elif len(interval_list) == 1:
+        return interval_list
+    else:
+        # Sort the input list by the first element of each interval
+        interval_list = sorted(interval_list)
+        print(interval_list)
+        # Go through each interval in the list
+        for interval in interval_list:
+            # If the merged list is empty, add the first interval
+            if not merged_list:
                 merged_list.append(interval)
-    return merged_list
+            else:
+                # If the current interval overlaps with the last interval in 
+                # the merged list, merge the two intervals
+                if interval[0] <= merged_list[-1][1]:
+                    merged_list[-1][1] = max(merged_list[-1][1], interval[1])
+                # If the current interval does not overlap with the last interval in 
+                # the merged list, add the current interval to the merged list
+                else:
+                    merged_list.append(interval)
+        return merged_list
 
 def test_merge():
-    
     # Test case ascending
     intervals = [[1,3],[2,6],[8,10],[15,18]]
     assert merge(intervals) == [[1,6],[8,10],[15,18]]
@@ -56,6 +64,8 @@ def test_merge():
     intervals_float= [[-1.5,4],[0,5]]
     assert merge(intervals_float) == [[-1.5,5]]
 
+    print("All tests passed.")
+
 if __name__ == '__main__':
     # Parse arguments from command line
     parser = argparse.ArgumentParser("Interval merge function.")
@@ -69,4 +79,4 @@ if __name__ == '__main__':
     else:
         # Run merge function
         merged_interval_list = merge(args.interval_list)
-        print(f"The intervals {args.interval_list} have been merged to {merged_interval_list}.")
+        print(f"The input intervals have been merged to {merged_interval_list}.")
