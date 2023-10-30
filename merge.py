@@ -1,17 +1,20 @@
 def merge(interval_list):
     merged_list = []
     interval_list = sorted(interval_list)
+    # Go through each interval in the list
     for interval in interval_list:
+        # If the merged list is empty, add the first interval
         if not merged_list:
             merged_list.append(interval)
         else:
+            # If the current interval overlaps with the last interval in 
+            # the merged list, merge the two intervals
             if interval[0] <= merged_list[-1][1]:
-                # print(interval[0])
-                # print(merged_list[-1][1])
                 merged_list[-1][1] = max(merged_list[-1][1], interval[1])
+            # If the current interval does not overlap with the last interval in 
+            # the merged list, add the current interval to the merged list
             else:
                 merged_list.append(interval)
-    print(merged_list)
     return merged_list
 
 def test_merge():
